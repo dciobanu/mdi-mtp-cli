@@ -11,3 +11,9 @@ repomix-output*
 .env.*.local
 .env.bak.*
 
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/

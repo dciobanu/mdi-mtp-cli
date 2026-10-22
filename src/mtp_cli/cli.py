@@ -35,8 +35,13 @@ class UsageError(Exception):
 # ---------------------------------------------------------------- config / session
 
 def load_dotenv() -> None:
-    """Read KEY=VALUE lines from ./.env or the project's .env without overriding the environment."""
-    for path in (Path.cwd() / ".env", Path(__file__).resolve().parents[2] / ".env"):
+    """Read KEY=VALUE lines from the first .env found, without overriding the environment.
+
+    Looks in the current directory, the source checkout (editable installs), then
+    ~/.config/mtp-cli/.env (for `make install`ed copies run from anywhere).
+    """
+    config = Path(os.environ.get("XDG_CONFIG_HOME") or Path.home() / ".config") / "mtp-cli" / ".env"
+    for path in (Path.cwd() / ".env", Path(__file__).resolve().parents[2] / ".env", config):
         if path.is_file():
             for line in path.read_text().splitlines():
                 line = line.strip()

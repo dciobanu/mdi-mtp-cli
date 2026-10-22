@@ -7,11 +7,17 @@ own network protocol directly.
 ## Setup
 
 ```bash
-pip install -e '.[dev]'
+make install          # installs `mtp` for your user via uv (into ~/.local/bin)
+make build            # wheel + sdist in dist/
+make help             # list targets
+pip install -e '.[dev]'   # or: editable install for development
 ```
 
 Credentials come from the environment (`MTP_USERNAME` / `MTP_PASSWORD`) or from
-`username=` / `password=` in `.env` (see `.env.example`). Optional:
+`username=` / `password=` in a `.env` file (see `.env.example`). The `.env` is
+read from the current directory, the source checkout, or
+`~/.config/mtp-cli/.env`; use the last one for an installed `mtp` run from
+anywhere. Optional:
 
 - `MTP_DIVISION`: default division for `search`, `teams` and `add-trainee` (e.g. `North Coast`)
 - `MTP_SERVER`: override the API endpoint (default `wss://b2.writable.site/_API`)
